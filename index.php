@@ -56,7 +56,7 @@ print '<table class="table table-bordered" id="status_table"></table>';
 ?>
 </div>
 
-<!-- Included JS -->
+<!-- included JS -->
 <script type="text/javascript" src="js/d3.js"></script>
 <script type="text/javascript" src="js/vis.js"></script>
 
