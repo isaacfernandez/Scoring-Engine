@@ -19,6 +19,7 @@
 
 # Included checks
 include 'checks/ping.php';
+include 'checks/open_port.php';
 
 # Included PHP and configuration
 require 'config.php';
@@ -31,6 +32,7 @@ $config = preg_replace('/#.*#/','',$config);
 $config = preg_replace('/\\n/',' ',$config);
 $servers = explode("---",$config);
 
+# Server Checks
 foreach ($servers as $server) {
 	if ($server !== "") {
 		$server = trim($server);
@@ -38,12 +40,13 @@ foreach ($servers as $server) {
 		$address = array_shift($checks);
 		
 		foreach($checks as $check) {
-			# For now, ignore arguments. This will need to be parsed later
-			$check = preg_replace('/[\\(\\)]/','',$check);
+			preg_match('/(?<=\\()[^\\)]*/',$check,$args);
+			$check = explode('(',$check)[0];
 
-			$check($address);
+			print $check . '[' . $args[0] . ']:' . $check($address, $args) . ',';
 		}
 	}
+	print '<br>';
 }
 
 # Page rendering

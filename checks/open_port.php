@@ -1,16 +1,16 @@
 <?php
 # This will be a template check file
-function open_port($address) {
+function open_port($address, $args) {
 
     $starttime = microtime(true);
-    $file      = fsockopen ("google.com", 80, $errno, $errstr, 10);
+    $file      = fsockopen ($address, $args[0], $errno, $errstr, 10);
     $stoptime  = microtime(true);
     $status    = 0;
 
-    if (!$file) print "fail";
+    if (!$file) return false;
     else {
         fclose($file);
-	print "pass";
+	return true;
     }
 }
 ?>
